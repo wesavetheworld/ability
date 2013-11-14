@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= 'http://localhost:8080/ability/';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'md5sihuayin';
 
 /*
 |--------------------------------------------------------------------------
@@ -357,6 +357,9 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-
+$config['js_path'] = 'public_files/js/';
+$config['image_path'] = 'public_files/images/';
+$config['css_path'] = 'public_files/css/';
+$config['editer_path'] = 'public_files/editer/';
 /* End of file config.php */
 /* Location: ./application/config/config.php */

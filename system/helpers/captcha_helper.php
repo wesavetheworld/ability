@@ -41,7 +41,7 @@ if ( ! function_exists('create_captcha'))
 {
 	function create_captcha($data = '', $img_path = '', $img_url = '', $font_path = '')
 	{
-		$defaults = array('word' => '', 'img_path' => '', 'img_url' => '', 'img_width' => '150', 'img_height' => '30', 'font_path' => '', 'expiration' => 7200);
+		$defaults = array('word' => '', 'img_path' => '', 'img_url' => '', 'img_width' => '150', 'img_height' => '30', 'font_path' => '', 'expiration' => 7200, 'str_len' => 8);
 
 		foreach ($defaults as $key => $val)
 		{
@@ -111,7 +111,7 @@ if ( ! function_exists('create_captcha'))
 			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 			$str = '';
-			for ($i = 0; $i < 8; $i++)
+			for ($i = 0; $i < $str_len; $i++)
 			{
 				$str .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
 			}
@@ -187,12 +187,10 @@ if ( ! function_exists('create_captcha'))
 		// -----------------------------------
 
 		$use_font = ($font_path != '' AND file_exists($font_path) AND function_exists('imagettftext')) ? TRUE : FALSE;
-
+        $per_length = $img_width/($length)-4;
 		if ($use_font == FALSE)
 		{
 			$font_size = 5;
-			$x = rand(0, $img_width/($length/3));
-			$y = 0;
 		}
 		else
 		{
@@ -205,9 +203,10 @@ if ( ! function_exists('create_captcha'))
 		{
 			if ($use_font == FALSE)
 			{
-				$y = rand(0 , $img_height/2);
+				$y = rand(0 , $img_height/4);
+                $x = rand(($i) * $per_length, ($i + 1) * $per_length);
 				imagestring($im, $font_size, $x, $y, substr($word, $i, 1), $text_color);
-				$x += ($font_size*2);
+
 			}
 			else
 			{
@@ -230,13 +229,14 @@ if ( ! function_exists('create_captcha'))
 
 		$img_name = $now.'.jpg';
 
-		ImageJPEG($im, $img_path.$img_name);
+		//ImageJPEG($im, $img_path.$img_name);
 
-		$img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
+		//$img = "<img src=\"$img_url$img_name\" width=\"$img_width\" height=\"$img_height\" style=\"border:0;\" alt=\" \" />";
 
-		ImageDestroy($im);
+		//ImageDestroy($im);
 
-		return array('word' => $word, 'time' => $now, 'image' => $img);
+		//return array('word' => $word, 'time' => $now, 'image' => $img);
+        return array("source" =>$im, 'word'=>$word, 'time'=>$now);
 	}
 }
 

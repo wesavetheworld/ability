@@ -76,6 +76,10 @@
 		@set_magic_quotes_runtime(0); // Kill magic quotes
 	}
 
+    if (ini_get('date.timezone') == '')
+    {
+        date_default_timezone_set('UTC');
+    }
 /*
  * ------------------------------------------------------
  *  Set the subclass_prefix
@@ -251,6 +255,7 @@
 
 	// Set a mark point for benchmarking
 	$BM->mark('loading_time:_base_classes_end');
+
 
 /*
  * ------------------------------------------------------
