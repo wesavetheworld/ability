@@ -54,4 +54,8 @@ class Forums {
 
     }
 
+    public function get_messages($start = 0, $offset = 20) {
+        return $this->CI->message_model->get_messages($start, $offset);
+    }
+
 }

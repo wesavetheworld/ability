@@ -8,8 +8,9 @@
 class User {
     private $CI = null;
     function __construct() {
-       $this->CI = & get_instance();
-       $this->CI->load->model("Users_model");
+        $this->CI = & get_instance();
+        $this->CI->load->model("Users_model");
+        $this->CI->load->model('group_model');
     }
 
     public function regist ($data) {
@@ -54,19 +55,18 @@ class User {
 
     public function get_user ($user_id) {
         if ($row = $this->CI->Users_model->get_user_info_by_id($user_id)) {
-            $this->CI->Users_model = $this->set_self($row);
+            $this->CI->Users_model = $row;
         }
         return $this->CI->Users_model;
     }
 
+    public function get_all_groups () {
+        return $this->CI->group_model->get_all();
+    }
 
-    private function set_self ($row) {
-        $this->CI->Users_model->set_user_id($row->id);
-        $this->CI->Users_model->username = $row->username;
-        $this->CI->Users_model->password = $row->password;
-        $this->CI->Users_model->email = $row->email;
-        $this->CI->Users_model->is_active = $row->is_active;
-        $this->CI->Users_model->permission = $row->permission;
-        return $this->CI->Users_model;
+    public function add_group ($group_data) {
+        $this->CI->group_model->group_name = $group_data['group_name'];
+        $this->CI->group_model->permission = serialize($group_data['permission']);
+        return $this->CI->group_model->add();
     }
 }

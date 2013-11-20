@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>会员登录</title>
-
-    <style type="text/css">
-    </style>
+<?php $this->load->view("common/header"); ?>
 </head>
 
 <body>

@@ -6,7 +6,7 @@ class Home extends MY_Controller {
 	{
         //所有的分类
         $this->load->library('forums');
-        $forums = $this->forums->get_forums();
+        $forums = $this->forums->get_messages();
         $data = array("forums" => ($forums ? $forums : array()));
 		$this->load->view('index', $data);
 	}

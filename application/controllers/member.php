@@ -102,4 +102,16 @@ class Member extends MY_Controller {
         print_r($error);
         $this->load->view("member/regist", $user);
     }
+
+    function group () {
+        $groups = $this->user->get_all_groups ();
+        //var_dump($groups);
+        if ($this->input->post("submitted")) {
+            $group_data = array();
+            $group_data['group_name'] = $this->input->post('group_name');
+            $group_data['permission'] = $this->input->post('permission');
+            $this->user->add_group($group_data);
+        }
+        $this->load->view('member/group');
+    }
 }

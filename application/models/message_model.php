@@ -44,4 +44,13 @@ class Message_model extends CI_Model {
         $query = $this->db->get($this->table_name);
         return $query->result();
     }
+
+    public function get_messages ($start = 0, $offset = 20) {
+        $this->db->select('*');
+        $this->db->from($this->table_name);
+        $this->db->join('forum', 'forum.forum_id = '.$this->table_name.'.forum_id');
+
+        $query = $this->db->get();
+        return $query->result('message_model');
+    }
 }

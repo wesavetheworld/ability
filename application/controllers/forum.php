@@ -37,40 +37,33 @@ class Forum extends MY_Controller {
                 $errors['argv'] = "请填写表单中内容";
             }
         }
-        print_r($errors);
-        $this->load->view("forum/add");
+        //print_r($errors);
+        $forums = $this->forums->get_forums();
+        $data = array("forums"=>$forums);
+        $this->load->view("forum/add", $data);
     }
 
-    function add_post($fid = 0, $msg_id = 0) {
+    function add_post($fid = 0) {
         //todo 权限控制
-        if ($fid <= 0) {
-            redirect("forum");
-        }
-        $forum = $this->forums->get_forum($fid);
-        if (!$forum) {
-            echo "meiyou";exit;
-        }
+        $data = array();
+        $forum = $fid > 0 ? $this->forums->get_forum($fid) : null;
+        $data['forum'] = $forum;
         //var_dump($forum);
-        $message = null;
-        if ($msg_id > 0) {
-            $message = $this->forums->get_message($msg_id);
-            if (!$message) {
-                echo "不存在父文章";exit;
-            }
-        }
+
         if ($this->input->post("submitted")) {
             $data = array();
             $data['subject'] = $this->input->post("msg_subject");
             $data['msg_text'] = $this->input->post('msg_text');
             $data['user_id'] = $this->sessionmanage->get_user_id();
-            $data['forum_id'] = $fid;
-            $data['parent_id'] = $msg_id;
+            $data['forum_id'] = $this->input->post('forum_id');
+            $data['parent_id'] = 0;
             if ($mid = $this->forums->add_message($data) ) {
                 redirect("forum/show/".$fid."/".$mid);
             }
         }
-        //var_dump($message);
-        $this->load->view("forum/add_post");
+        $forums = $this->forums->get_forums();
+        $data = array("forums"=>$forums);
+        $this->load->view("forum/add_post", $data);
     }
 
     public function show ($fid = 0, $msg_id = 0) {

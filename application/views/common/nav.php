@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -33,7 +33,13 @@
                 $user_info = $this->sessionmanage->get_user_info();
                 ?>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?php echo site_url('member'); ?>"><?php echo $user_info->username; ?></a></li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="#"><?php echo $user_info->username; ?><b class="caret"></b></a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li role="presentation"><a role="menuitem" href="<?php echo site_url('member'); ?>">个人中心</a></li>
+                            <li role="presentation"><a role="menuitem" href="<?php echo site_url('forum/add_post/')?>">发布内容</a></li>
+                        </ul>
+                    </li>
                     <li><a href="<?php echo site_url('member/logout'); ?>">退出</a></li>
                 </ul>
             <? } else {?>
