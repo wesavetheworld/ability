@@ -27,6 +27,7 @@ class Forum extends MY_Controller {
             $forum_data = array();
             $forum_data['forum_name'] = $this->input->post("forum_name");
             $forum_data['forum_desc'] = $this->input->post("forum_desc");
+            $forum_data['image'] = $this->input->post("photo");
             if ($forum_data['forum_name'] && $forum_data['forum_desc']) {
                 if ($pid = $this->forums->add_forum($forum_data)) {
                     redirect("forum");
@@ -67,25 +68,31 @@ class Forum extends MY_Controller {
     }
 
     public function show ($fid = 0, $msg_id = 0) {
-        $forums = array();
-        if ($fid) {
-            $forums[] = $this->forums->get_forum($fid);
-        } else {
-            $forums = $this->forums->get_forums();
+        if ($msg_id > 0 && $fid > 0) {
+            $forum = $this->forums->get_forum($fid);
+            $message = $this->forums->get_message($msg_id);
+            $data = array(
+                'message' => $message ? $message : array() ,
+                'forum' => $forum ? $forum : array() ,
+                'fid' => $fid,
+                'msg_id' => $msg_id
+            );
+            $this->load->view("forum/show_message", $data);
+            return true;
         }
 
-        $messages = array();
-        if ($msg_id > 0) {
-            $messages[] = $this->forums->get_message($msg_id);
-        } else {
-            $messages = $this->forums->get_messages_by_forum_id ($fid);
+        if ($fid > 0) {
+            $forum = $this->forums->get_forum($fid);
+            $messages = $this->forums->get_messages_by_forum_id($fid);
+            $data = array(
+                'forum' => $forum ? $forum : array() ,
+                'messages' => $messages ? $messages : array(),
+                'fid' => $fid,
+                'msg_id' => $msg_id
+            );
+            $this->load->view("forum/show_forum", $data);
+            return true;
         }
-        $data = array(
-            'forums' =>  $forums,
-            'messages' => $messages,
-            'fid' => $fid,
-            'msg_id' => $msg_id
-        );
-        $this->load->view("forum/show", $data);
+
     }
 }

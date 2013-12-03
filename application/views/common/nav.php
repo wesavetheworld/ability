@@ -42,7 +42,7 @@
                     </li>
                     <li><a href="<?php echo site_url('member/logout'); ?>">退出</a></li>
                 </ul>
-            <? } else {?>
+            <?php } else {?>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?php echo site_url('member/logon'); ?>">登录</a></li>
                     <li><a href="<?php echo site_url('member/signin'); ?>">注册</a></li>

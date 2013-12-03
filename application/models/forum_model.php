@@ -7,8 +7,9 @@
  */
 class Forum_model extends CI_Model {
     public $forum_id;
-    public $forum_name = '';
-    public $discription = '';
+    public $forum_name;
+    public $discription;
+    public $image;
 
     private $table_name = 'forum';
 

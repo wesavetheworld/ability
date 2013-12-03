@@ -8,26 +8,19 @@
     <?php $this->load->view("common/nav"); ?>
 
     <div class="container">
-        <div class="jumbotron">
-            <h1>引导用户教程</h1>
-        </div>
-    <div class="col-xs-12 col-sm-9">
 
-            <?php if (count($forums) > 0) { ?>
-                <?php foreach($forums as $forum) { ?>
-                    <div class="media">
-                        <a href="<?php echo site_url('forum/show/'.$forum->forum_id.'/'.$forum->msg_id);?>" class="pull-left">
-                            <img class="media-object" src="<?php echo base_url().IMAGE_PATH.'category/'.$forum->image;?>" alt="<?php echo $forum->forum_name; ?>">
-                        </a>
-                        <div class="media-body">
-                            <h4 class="media-heading"><a href="<?php echo site_url('forum/show/'.$forum->forum_id.'/'.$forum->msg_id);?>"><?php echo $forum->subject; ?></a></h4>
-                            <p>时间 : <?php echo $forum->msg_date; ?>  分类 : <?php echo $forum->forum_name; ?> </p>
-                            <?php echo $forum->msg_text; ?>
-                        </div>
-                    </div>
-                <?php } ?>
+        <div class="col-xs-12 col-sm-9">
+            <ol class="breadcrumb">
+                <li><a href="<?php echo site_url(); ?>">首页</a></li>
+                <li><a href="<?php echo site_url('forum/show/'.$fid); ?>"><?php echo $forum->forum_name; ?></a></li>
+                <li class="active"><?php echo $message->subject; ?></li>
+            </ol>
+            <?php if (!empty($message)) {?>
+                <h2><?php echo $message->subject; ?></h2>
+                <p><?php echo $message->msg_text; ?></p>
             <?php } ?>
-    </div>
+
+        </div>
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             <div class="list-group">

@@ -16,6 +16,7 @@ class Forums {
     public function add_forum ($data) {
         $this->CI->forum_model->forum_name = $data['forum_name'];
         $this->CI->forum_model->discription = $data['forum_desc'];
+        $this->CI->forum_model->image = $data['image'];
         return $this->CI->forum_model->add_forum();
     }
 

@@ -10,16 +10,10 @@
                 <label for="subject" class="col-sm-2 control-label">标题</label>
                 <div class="col-sm-10">
                         <div class="col-xs-7">
-                            <input type="text" class="form-control" id="subject" placeholder="请输入标题">
+                            <input type="text" name="forum_name" class="form-control" id="subject" placeholder="请输入标题">
                         </div>
                         <div class="col-xs-3">
-                            <select class="form-control">
-                                <option value="0">请选择板块</option>
-                                <?php foreach($forums as $forum ) { ?>
-                                    <option value="<?php echo $forum->forum_id; ?>"> <?php echo $forum->forum_name; ?></option>
-                                <?php } ?>
-
-                            </select>
+                            <input type="text" class="form-control" name="photo" placeholder="输入图片名称">
                         </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
 class MY_Controller extends CI_Controller {
     function __construct() {
         parent::__construct();
-        $this->check_user();
+        //$this->check_user();
         define("JS_PATH", $this->config->item('js_path'));
         define("IMAGE_PATH", $this->config->item("image_path"));
         define("CSS_PATH", $this->config->item("css_path"));
@@ -32,8 +32,8 @@ class MY_Controller extends CI_Controller {
         $this->load->helper('directory');
         $map = directory_map('./'.IMAGE_PATH.'avatars/');
         $user_id = $this->sessionmanage->get_user_id();
-        if (in_array($user_id."jpg", $map)) {
-            define("AVATAR_IMAGE", base_url().IMAGE_PATH.'avatars/'.$user_id.'jpg');
+        if (in_array($user_id.".jpg", $map)) {
+            define("AVATAR_IMAGE", base_url().IMAGE_PATH.'avatars/'.$user_id.'.jpg');
         } else {
             define("AVATAR_IMAGE", base_url().IMAGE_PATH.'avatars/default.jpg');
         }
