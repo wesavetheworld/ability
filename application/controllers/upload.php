@@ -5,7 +5,7 @@
  * Date: 13-12-2
  * Time: 下午10:52
  */
-class Upload extends MY_Controller {
+class Upload extends Front_Controller {
     function __construct()
     {
         parent::__construct();

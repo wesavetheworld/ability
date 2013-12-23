@@ -11,7 +11,7 @@
         <div class="jumbotron">
             <h1>引导用户教程</h1>
         </div>
-    <div class="col-xs-12 col-sm-9">
+    <div class="col-xs-12 col-sm-8">
 
             <?php if (count($forums) > 0) { ?>
                 <?php foreach($forums as $forum) { ?>
@@ -29,18 +29,33 @@
             <?php } ?>
     </div>
 
+<div class="row">
+
+                    <div class="col-xs-6 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">最新用户</h3>
+                            </div>
+                            <div class="panel-body">
+                        <?php
+                        $this->load->helper('directory');
+                        $map = directory_map('./'.IMAGE_PATH.'avatars/');
+                        foreach($users as $user) {
+                            ?>
+                            <?php $avatar = in_array($user->id.".jpg", $map) ? base_url().IMAGE_PATH.'avatars/'.$user->id.'.jpg' : base_url().IMAGE_PATH.'avatars/default.jpg'?>
+                            <a href="#" class="thumbnail">
+                                <img src="<?php echo $avatar ;?>" data-src="<?php echo $avatar ;?>" alt="<?php echo $user->username; ?>">
+                            </a>
+                        <?php } ?>
+                            </div>
+
+                        </div>
+                    </div>
+</div>
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             <div class="list-group">
-                <a href="#" class="list-group-item active">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
+                <a href="#" class="list-group-item">aa</a>
+                <a href="#" class="list-group-item">aa</a>
             </div>
         </div><!--/span-->
     </div> <!-- /container -->

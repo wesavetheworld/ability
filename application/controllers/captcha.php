@@ -5,7 +5,7 @@
  * Date: 13-11-8
  * Time: 上午10:43
  */
-class Captcha extends MY_Controller {
+class Captcha extends Front_Controller {
     function index() {
         $this->load->helper('captcha');
         $vals = array(

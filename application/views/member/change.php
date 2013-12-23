@@ -12,8 +12,8 @@
                 <div class="well">
                     <div class="page-header" style="margin: 0 0 10px 0;">
                         <ul class="nav nav-pills">
-                            <li class="active"><a href="<?php echo site_url('member')?>">个人信息</a></li>
-                            <li><a href="<?php echo site_url('member/change')?>">修改密码</a></li>
+                            <li><a href="<?php echo site_url('member')?>">个人信息</a></li>
+                            <li class="active"><a href="<?php echo site_url('member/change')?>">修改密码</a></li>
                         </ul>
                     </div>
 
@@ -21,37 +21,23 @@
                     <form class="form-horizontal" role="form" method="post">
                         <div class="col-xs-12 col-sm-8">
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">账号：</label>
-                                <div class="col-sm-10">
-                                    <label class=" control-label"><?php echo $username ;?></label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputEmail">邮箱：</label>
+                                <label class="col-sm-2 control-label" for="inputPass">原密码：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="email" id="inputEmail" value="<?php echo $email ;?>" required>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputBlog">博客主页：</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="blog" id="inputBlog" value="<?php echo $blog ;?>">
+                                    <input type="password" class="form-control" name="password" id="inputPass" required>
                                 </div>
 
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="inputContact">联系方式：</label>
+                                <label class="col-sm-2 control-label" for="inputNew">新密码：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="contact" id="inputContact" value="<?php echo $contact ;?>">
+                                    <input type="password" class="form-control" name="newpassword" id="inputNew" required>
                                 </div>
 
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="introduction">自我简介：</label>
+                                <label class="col-sm-2 control-label" for="inputCon">确认密码：</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="intro" id="introduction" value="<?php echo $introduction ;?>">
+                                    <input type="password" class="form-control" name="newpassword2" id="inputCon" required>
                                 </div>
 
                             </div>

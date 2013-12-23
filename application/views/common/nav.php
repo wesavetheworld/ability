@@ -30,11 +30,11 @@
                 -->
             </ul>
             <?php if ($this->sessionmanage->get_user_id() > 0) {
-                $user_info = $this->sessionmanage->get_user_info();
+                $user_info = ($this->sessionmanage->get_user_info());
                 ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a data-toggle="dropdown" href="#"><?php echo $user_info->username; ?><b class="caret"></b></a>
+                        <a data-toggle="dropdown" href="#"><?php echo $user_info; ?><b class="caret"></b></a>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                             <li role="presentation"><a role="menuitem" href="<?php echo site_url('member'); ?>">个人中心</a></li>
                             <li role="presentation"><a role="menuitem" href="<?php echo site_url('forum/add_post/')?>">发布内容</a></li>

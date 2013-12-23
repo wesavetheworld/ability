@@ -7,22 +7,14 @@
  */
 class Sessionmanage {
     private static $CI;
-    private static $user_id = null;
     function __construct () {
         self::$CI = & get_instance();
-        if (self::$CI->session->userdata("user_id")) {
-            self::$user_id = self::$CI->session->userdata("user_id");
-        }
     }
     public static function is_login () {
-        return self::$user_id ? true : false;
+        return self::get_user_id() ? true : false;
     }
 
     public static function set_login ($user_id) {
-        if (!$user_id) {
-            return false;
-        }
-
         self::$CI->session->set_userdata("user_id", $user_id);
     }
 
@@ -30,7 +22,7 @@ class Sessionmanage {
         self::$CI->session->unset_userdata("user_id");
     }
     public static function get_user_id () {
-        return self::$user_id;
+        return self::$CI->session->userdata("user_id");
     }
 
     public static function set_captcha_code ($code) {
@@ -42,7 +34,8 @@ class Sessionmanage {
     }
 
     public static function set_user_info($user_info) {
-        self::$CI->session->set_userdata("user_info", $user_info);
+        self::set_login($user_info->id);
+        self::$CI->session->set_userdata("user_info", $user_info->username);
     }
 
     public static function get_user_info() {

@@ -17,7 +17,7 @@
             </ol>
             <?php if (!empty($message)) {?>
                 <h2><?php echo $message->subject; ?></h2>
-                <p><?php echo $message->msg_text; ?></p>
+                <p><?php echo stripslashes($message->msg_text); ?></p>
             <?php } ?>
 
         </div>
