@@ -10,7 +10,7 @@ class Forums {
     function __construct() {
         $this->CI = & get_instance();
         $this->CI->load->model("forum_model");
-        $this->CI->load->model("message_model");
+        $this->CI->load->model("message_m");
     }
 
     public function add_forum ($data) {
@@ -32,18 +32,18 @@ class Forums {
     }
 
     public function add_message($data) {
-        $this->CI->message_model->parent_id = $data['parent_id'];
-        $this->CI->message_model->forum_id = $data['forum_id'];
-        $this->CI->message_model->user_id = $data['user_id'];
-        $this->CI->message_model->subject = $data['subject'];
-        $this->CI->message_model->msg_text = $data['msg_text'];
-        $this->CI->message_model->msg_date = date("Y-m-d H:i:s");
-        return $this->CI->message_model->add_message();
+        $this->CI->message_m->parent_id = $data['parent_id'];
+        $this->CI->message_m->forum_id = $data['forum_id'];
+        $this->CI->message_m->user_id = $data['user_id'];
+        $this->CI->message_m->subject = $data['subject'];
+        $this->CI->message_m->msg_text = $data['msg_text'];
+        $this->CI->message_m->msg_date = date("Y-m-d H:i:s");
+        return $this->CI->message_m->add_message();
     }
     public function get_message ($mid) {
         $mid = (int) $mid;
 
-        return $this->CI->message_model->get_message($mid);
+        return $this->CI->message_m->get_message($mid);
     }
 
     public function get_messages_by_forum_id ($fid) {
@@ -51,12 +51,19 @@ class Forums {
             return false;
         }
 
-        return  $this->CI->message_model->get_messages_by_forum_id ($fid);
+        return  $this->CI->message_m->get_messages_by_forum_id ($fid);
 
     }
 
     public function get_messages($start = 0, $offset = 20) {
-        return $this->CI->message_model->get_messages($start, $offset);
+        return $this->CI->message_m->get_messages($start, $offset);
     }
 
+    /*
+     * 访问次数添加
+     */
+    public function view_add ($msg_id) {
+        $model = $this->get_message($msg_id);
+        return $model->add_view_count();
+    }
 }

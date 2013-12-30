@@ -5,7 +5,7 @@
  * Date: 13-11-13
  * Time: 下午10:35
  */
-class Single extends MY_Controller {
+class Single extends Front_Controller {
     function index () {
         $this->about();
     }

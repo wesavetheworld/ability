@@ -16,6 +16,7 @@ class Users_m extends CI_Model {
     public  $blog;
     public  $contact;
     public  $introduction;
+    public  $avatar;
     private $table_name = 'users';
 
     function __construct()

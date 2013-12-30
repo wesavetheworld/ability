@@ -14,6 +14,7 @@
                         <ul class="nav nav-pills">
                             <li class="active"><a href="<?php echo site_url('member')?>">个人信息</a></li>
                             <li><a href="<?php echo site_url('member/change')?>">修改密码</a></li>
+                            <li><a href="<?php echo site_url('member/makebook/epub')?>">生成epub</a></li>
                         </ul>
                     </div>
 

@@ -6,10 +6,15 @@
  * Time: 下午10:52
  */
 class Upload extends Front_Controller {
+    private $user_id = 0;
     function __construct()
     {
         parent::__construct();
         $this->load->helper(array('form'));
+        $this->user_id = $this->sessionmanage->get_user_id();
+        if ($this->user_id <= 0) {
+            echo json_encode(array('success'=>false, 'failDesc'=>'请先登录'));exit;
+        }
     }
 
     function index()
@@ -35,6 +40,7 @@ class Upload extends Front_Controller {
     private function do_upload($config) {
 
         $this->load->library('upload', $config);
+        $this->load->library('user');
 
         if ( ! $this->upload->do_upload())
         {
@@ -46,13 +52,16 @@ class Upload extends Front_Controller {
         else
         {
             $data = $this->upload->data();
-            $this->cute_pic($data['full_path'], 120, 120);
+            $user = $this->user->get_user($this->user_id);
+            $user->avatar = $this->user_id.'.jpg';
+            $user->save();
+            $this->cute_pic($data['full_path'], 100, 100, $this->user_id);
             echo json_encode($data);
             return true;
         }
     }
 
-    private function cute_pic ($image, $width, $height) {
+    private function cute_pic ($image, $width, $height, $user_id = 0) {
         $config['image_library'] = 'gd2';
         $config['source_image'] = $image;
         $config['create_thumb'] = FALSE;
@@ -65,7 +74,27 @@ class Upload extends Front_Controller {
         {
             echo json_encode($this->image_lib->display_errors());exit;
         }
+        //zhong
+        $config['width'] = 48;
+        $config['height'] = 48;
+        $config['create_thumb'] = true;
+        $config['thumb_marker'] = '_middle';
+        $this->image_lib->initialize($config);
+        if ( ! $this->image_lib->resize())
+        {
+            echo json_encode($this->image_lib->display_errors());exit;
+        }
 
+        //zhong
+        $config['width'] = 24;
+        $config['height'] = 24;
+        $config['create_thumb'] = true;
+        $config['thumb_marker'] = '_small';
+        $this->image_lib->initialize($config);
+        if ( ! $this->image_lib->resize())
+        {
+            echo json_encode($this->image_lib->display_errors());exit;
+        }
     }
 }
 ?>

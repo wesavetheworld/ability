@@ -6,11 +6,12 @@
  * Time: 下午4:22
  */
 
-class Forum extends MY_Controller {
+class Forum extends Front_Controller {
     private $user_info = null;
     function __construct() {
         parent::__construct();
         $this->load->library("forums");
+        $this->load->library('user');
     }
 
     function index () {
@@ -68,12 +69,29 @@ class Forum extends MY_Controller {
     }
 
     public function show ($fid = 0, $msg_id = 0) {
+        /*
+         * 同时存在两个参数，表示显示某个文章的具体内容
+         */
         if ($msg_id > 0 && $fid > 0) {
             $forum = $this->forums->get_forum($fid);
             $message = $this->forums->get_message($msg_id);
+            $user_info = $this->user->get_user($message->user_id);
+            $visitor = null;
+            if ($this->sessionmanage->get_user_id() > 0) {
+                $visitor = $this->user->get_user($this->sessionmanage->get_user_id());
+            }
+
+            $this->forums->view_add($msg_id);
+
+            //所有的评论
+            $this->load->library('comment');
+            $comments = $this->comment->get_all_comments_by_mid($msg_id);
             $data = array(
                 'message' => $message ? $message : array() ,
                 'forum' => $forum ? $forum : array() ,
+                'comments' => $comments ? $comments : array(),
+                'user_info' => $user_info,
+                'visitor' => $visitor,
                 'fid' => $fid,
                 'msg_id' => $msg_id
             );

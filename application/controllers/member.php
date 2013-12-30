@@ -150,4 +150,25 @@ class Member extends Front_Controller {
             echo "激活失败，请重新注册！";exit;
         }
     }
+
+    /**
+     * 生成电子书
+     */
+    function makebook ($type) {
+        if (!in_array($type, array('epub', 'pdf', 'html'))) {
+            echo "格式错误";
+        }
+
+        switch ($type) {
+            case 'epub' :
+                $this->_printEpub();
+                break;
+        }
+        echo "t";
+    }
+
+    private function _printEpub () {
+        $this->load->library('epubmaker');
+        echo $this->epubmaker->display();
+    }
 }
